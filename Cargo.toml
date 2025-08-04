@@ -1,0 +1,58 @@
+[package]
+name = "esp32-template"
+version = "0.1.0"
+authors = ["Your Name <your.email@example.com>"]
+edition = "2021"
+resolver = "2"
+rust-version = "1.77"
+
+[[bin]]
+name = "esp32-template"
+harness = false # do not use the built in cargo test harness -> resolve rust-analyzer errors
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true    # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
+[features]
+default = []
+experimental = ["esp-idf-svc/experimental"]
+
+# Optional features for different ESP32 variants
+esp32 = []
+esp32s2 = []
+esp32s3 = []
+esp32c3 = []
+
+# Optional features for additional functionality
+wifi = ["esp-idf-svc/wifi"]
+bluetooth = ["esp-idf-svc/bt"]
+embassy = ["esp-idf-svc/embassy-time-driver", "esp-idf-svc/embassy-sync"]
+
+[dependencies]
+# Core ESP-IDF dependencies
+esp-idf-hal = "0.45.2"
+esp-idf-svc = "0.51.0"
+
+# Logging and error handling
+log = "0.4"
+anyhow = "1.0.98"
+
+# Optional: Embassy async runtime
+# embassy-time = { version = "0.4.0", features = ["generic-queue-8"], optional = true }
+# embassy-executor = { version = "0.7", features = ["executor-thread", "arch-std"], optional = true }
+
+# Optional: Additional useful crates
+# serde = { version = "1.0", features = ["derive"], optional = true }
+# serde_json = { version = "1.0", optional = true }
+# heapless = "0.8", optional = true }
+
+[build-dependencies]
+embuild = "0.33"
+
+[dev-dependencies]
+# Add test dependencies here if needed
+# mockall = "0.12" 
